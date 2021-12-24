@@ -1,10 +1,15 @@
-import React from 'react';
-import {Button, makeStyles, Typography} from "@material-ui/core";
+import {
+    Button, FormControl, FormGroup,
+    makeStyles, TextField,
+    Typography
+} from "@material-ui/core";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import SearchIcon from '@mui/icons-material/Search';
 import PeopleIcon from '@mui/icons-material/People';
+import {Modal} from "../components/Modal";
+import React, {useState} from "react";
 
-const useStyles = makeStyles((theme) => ({
+export const useStylesSignIn = makeStyles((theme) => ({
     wrapper: {
         display: 'flex',
         height: '100vh',
@@ -66,15 +71,37 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 60,
         marginTop: 20,
     },
+    loginSideField: {
+        marginBottom: 18,
+    },
+    loginFormControl: {
+        marginBottom: theme.spacing(2),
+    },
+    registerField: {
+        marginBottom: theme.spacing(5),
+    },
 }));
 
 const SignIn = () => {
-    const classes = useStyles();
+    const classes = useStylesSignIn();
+    const [open, setOpen] = useState<'signIn' | 'signUp'>();
+
+    const handleClickOpenSignIn = (): void => {
+        setOpen('signIn');
+    };
+
+    const handleClickOpenSignUp = (): void => {
+        setOpen('signUp');
+    };
+
+    const handleClose = (): void => {
+        setOpen(undefined);
+    };
 
     return (
         <div className={classes.wrapper}>
             <section className={classes.blueSide}>
-                <TwitterIcon color='primary' className={classes.blueSideBigIcon} />
+                <TwitterIcon color='primary' className={classes.blueSideBigIcon}/>
                 <ul className={classes.blueSideListInfo}>
                     <li className={classes.blueSideListInfoItem}>
                         <Typography variant='h6'>
@@ -96,13 +123,106 @@ const SignIn = () => {
             <section className={classes.loginSide}>
                 <div className={classes.loginSideWrapper}>
                     <TwitterIcon color='primary' className={classes.loginSideTwitterIcon}/>
-                    <Typography className={classes.loginSideTitle}>Узнайте, что происходит в мире прямо сейчас</Typography>
+                    <Typography className={classes.loginSideTitle}>
+                        Узнайте, что происходит в мире прямо сейчас
+                    </Typography>
                     <Typography>
                         <b>Присоединяйтесь прямо сейчас</b>
                     </Typography>
                     <br/>
-                    <Button style={{ marginBottom: 20 }} variant="contained" color="primary" fullWidth>Зарегистрироваться</Button>
-                    <Button variant="outlined" color="primary" fullWidth>Войти</Button>
+                    <Button onClick={handleClickOpenSignUp} style={{marginBottom: 20}} variant="contained"
+                            color="primary" fullWidth>
+                        Зарегистрироваться
+                    </Button>
+                    <Button onClick={handleClickOpenSignIn} variant="outlined" color="primary" fullWidth>
+                        Войти
+                    </Button>
+                    <Modal
+                        open={open === 'signIn'}
+                        onClose={handleClose}
+                        classes={classes}
+                        title="Войти в аккаунт">
+                        <FormControl className={classes.loginFormControl} component="fieldset" fullWidth>
+                            <FormGroup aria-label="position" row>
+                                <TextField
+                                    className={classes.loginSideField}
+                                    autoFocus
+                                    id="email"
+                                    label="Email"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    variant="filled"
+                                    type="email"
+                                    fullWidth
+                                />
+                                <TextField
+                                    className={classes.loginSideField}
+                                    autoFocus
+                                    id="password"
+                                    label="Пароль"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    variant="filled"
+                                    type="password"
+                                    fullWidth
+                                />
+                                <Button onClick={handleClose} variant="contained" color="primary" fullWidth>
+                                    Войти
+                                </Button>
+                            </FormGroup>
+                        </FormControl>
+                    </Modal>
+                    <Modal
+                        open={open === 'signUp'}
+                        onClose={handleClose}
+                        classes={classes}
+                        title="Создайте учетную запись">
+                        <FormControl className={classes.loginFormControl} component="fieldset" fullWidth>
+                            <FormGroup aria-label="position" row>
+                                <TextField
+                                    className={classes.registerField}
+                                    autoFocus
+                                    id="name"
+                                    label="Имя"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    variant="filled"
+                                    type="name"
+                                    fullWidth
+                                />
+                                <TextField
+                                    className={classes.registerField}
+                                    autoFocus
+                                    id="email"
+                                    label="Email"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    variant="filled"
+                                    type="email"
+                                    fullWidth
+                                />
+                                <TextField
+                                    className={classes.registerField}
+                                    autoFocus
+                                    id="password"
+                                    label="Пароль"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    variant="filled"
+                                    type="password"
+                                    fullWidth
+                                />
+                                <Button onClick={handleClose} variant="contained" color="primary" fullWidth>
+                                    Далее
+                                </Button>
+                            </FormGroup>
+                        </FormControl>
+                    </Modal>
                 </div>
             </section>
         </div>
