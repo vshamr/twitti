@@ -1,8 +1,4 @@
-import {
-    Button, FormControl, FormGroup,
-    makeStyles, TextField,
-    Typography
-} from "@material-ui/core";
+import {Button, FormControl, Typography, FormGroup, makeStyles, TextField} from "@material-ui/core";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import SearchIcon from '@mui/icons-material/Search';
 import PeopleIcon from '@mui/icons-material/People';
@@ -82,7 +78,7 @@ export const useStylesSignIn = makeStyles((theme) => ({
     },
 }));
 
-const SignIn = () => {
+export const SignIn = () => {
     const classes = useStylesSignIn();
     const [open, setOpen] = useState<'signIn' | 'signUp'>();
 
@@ -228,5 +224,3 @@ const SignIn = () => {
         </div>
     );
 };
-
-export default SignIn;
