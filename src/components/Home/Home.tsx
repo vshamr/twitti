@@ -1,6 +1,5 @@
-import {Grid, IconButton, Typography, makeStyles, Container, withStyles, Paper, Avatar} from "@material-ui/core";
+import {Grid, IconButton, Typography, makeStyles, Container, withStyles, Paper} from "@material-ui/core";
 import {createStyles, InputBase} from "@mui/material";
-import classNames from 'classnames';
 import TwitterIcon from "@mui/icons-material/Twitter";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -8,14 +7,11 @@ import MailIcon from "@mui/icons-material/MailOutline";
 import BookmarkIcon from "@mui/icons-material/BookmarkBorder";
 import ListIcon from "@mui/icons-material/FormatListBulleted";
 import PersonIcon from "@mui/icons-material/PersonOutline";
-import CommentIcon from '@mui/icons-material/ChatBubbleOutline';
-import RepeatIcon from '@mui/icons-material/Repeat';
-import LikeIcon from '@mui/icons-material/FavoriteBorder';
-import ReplyIcon from '@mui/icons-material/Reply';
 import grey from "@material-ui/core/colors/grey";
 
+import {Tweet} from "../Tweet";
 
-const useStylesHome = makeStyles(() => ({
+export const useStylesHome = makeStyles(() => ({
     wrapper: {
         height: '100vh',
     },
@@ -60,12 +56,17 @@ const useStylesHome = makeStyles(() => ({
         },
     },
     tweet: {
-      '&: hover': {
-       backgroundColor: 'rgb(245, 248, 250)',
-      },
+        cursor: 'pointer',
+        paddingTop: 15,
+        paddingLeft: 20,
+        '&:hover': {
+            backgroundColor: 'rgb(245, 248, 250)',
+        },
     },
     tweetsFooter: {
         display: 'flex',
+        position: 'relative',
+        left: -10,
         justifyContent: 'space-between',
         width: 450,
     },
@@ -141,48 +142,16 @@ export const Home = () => {
                         <Paper className={classes.tweetsHeader} variant="outlined">
                             <Typography variant="h6">Главная</Typography>
                         </Paper>
-                        <Paper className={classNames(classes.tweet, classes.tweetsHeader)} variant="outlined">
-                            <Grid container spacing={3}>
-                                <Grid item xs={1}>
-                                    <Avatar
-                                        alt="User Avatar"
-                                        src="http://s1.iconbird.com/ico/0612/practika/w256h2561339698323user.png"
-                                    />
-                                </Grid>
-                                <Grid item xs={11}>
-                                    <Typography>
-                                        <b>Maksym</b> <span className={classes.tweetsUserName}>@maksym24</span>
-                                    </Typography>
-                                    <Typography variant="body1" gutterBottom>
-                                        В моем роду было целое поколение художников от рождения. Они все умерли от
-                                        алкоголизма. Ген художника мне не передался, как видите, а вот...
-                                    </Typography>
-                                    <div className={classes.tweetsFooter}>
-                                        <div>
-                                            <IconButton>
-                                                <CommentIcon style={{fontSize: 20}}/>
-                                            </IconButton>
-                                            <span>1</span>
-                                        </div>
-                                        <div>
-                                            <IconButton>
-                                                <RepeatIcon style={{fontSize: 20}}/>
-                                            </IconButton>
-                                        </div>
-                                        <div>
-                                            <IconButton>
-                                                <LikeIcon style={{fontSize: 20}}/>
-                                            </IconButton>
-                                        </div>
-                                        <div>
-                                            <IconButton>
-                                                <ReplyIcon style={{fontSize: 20}}/>
-                                            </IconButton>
-                                        </div>
-                                    </div>
-                                </Grid>
-                            </Grid>
-                        </Paper>
+                        <Tweet
+                            classes={classes}
+                            text="В моем роду было целое поколение художников от рождения. Они все умерли от алкоголизма. Ген художника мне не передался, как видите, а вот..."
+                            user={{
+                                fullName: "Maksym",
+                                userName: "maksym24",
+                                avatarUrl:
+                                    "https://media.istockphoto.com/photos/headshot-of-a-young-adult-picture-id1132792394?k=20&m=1132792394&s=612x612&w=0&h=q-ikZuTSdSVehcxaVFaU5q7APZsEYsRdQeRqKfERTiE=",
+                            }}
+                        />
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
